@@ -6,6 +6,54 @@
     <title>爱心家园 - 流浪动物救助领养平台</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        .donate-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .donate-option {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+        }
+
+        .donate-option i {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #118ab2;
+        }
+
+        .donate-option h3 {
+            margin: 10px 0 10px 0;
+            font-size: 1.3em;
+        }
+
+        .donate-option p {
+            margin: 10px 0 20px 0;
+            color: #666;
+            flex-grow: 1;
+        }
+
+        .donate-option .secondary-btn {
+            margin-top: auto;
+            width: 100%;
+            max-width: 150px;
+            align-self: center;
+        }
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -288,7 +336,7 @@
                     <p>致力于搭建专业的流浪动物救助领养平台，通过科技手段提升救助效率，让更多的流浪动物找到温暖的家。我们相信每个生命都值得被善待。</p>
                     
                     <h3>发展历程</h3>
-                    <p>自2020年成立以来，我们已经成功救助了超过1000只流浪动物，并帮助其中大部分找到了新家。未来我们将继续扩大救助范围，优化平台功能，建立更多合作网络。</p>
+                    <p>自2025年成立以来，我们已经成功救助了超过1000只流浪动物，并帮助其中大部分找到了新家。未来我们将继续扩大救助范围，优化平台功能，建立更多合作网络。</p>
                     
                     <h3>合作对接</h3>
                     <p>我们积极寻求与政府部门、社区组织、宠物医院、爱心企业的合作，共同推动流浪动物救助事业的发展。</p>
@@ -302,24 +350,7 @@
                         <h4 class="chart-title">历年救助与领养数据对比</h4>
                         <div class="chart-row">
                             <div class="chart-wrapper">
-                                <div class="chart-placeholder">
-                                    <div style="position:relative; width:100%; height:100%;">
-                                        <!-- 柱状图 -->
-                                        <div style="position:absolute; bottom:20px; left:50px; width:60px; height:180px; background:#118ab2; text-align:center; color:white; padding-top:5px; font-size:12px;">2021<br/>320只</div>
-                                        <div style="position:absolute; bottom:20px; left:130px; width:60px; height:160px; background:#06d6a0; text-align:center; color:white; padding-top:5px; font-size:12px;">2022<br/>280只</div>
-                                        <div style="position:absolute; bottom:20px; left:210px; width:60px; height:200px; background:#ff9e00; text-align:center; color:white; padding-top:5px; font-size:12px;">2023<br/>350只</div>
-                                        <div style="position:absolute; bottom:20px; left:310px; width:60px; height:140px; background:#ef476f; text-align:center; color:white; padding-top:5px; font-size:12px;">领养<br/>220只</div>
-                                        <div style="position:absolute; bottom:20px; left:390px; width:60px; height:160px; background:#118ab2; text-align:center; color:white; padding-top:5px; font-size:12px;">领养<br/>280只</div>
-                                        <div style="position:absolute; bottom:20px; left:470px; width:60px; height:220px; background:#06d6a0; text-align:center; color:white; padding-top:5px; font-size:12px;">领养<br/>320只</div>
-                                        <div style="position:absolute; bottom:0; left:50; width:500px;">
-                                            <div style="display:flex; justify-content:space-between; padding:0 20px;">
-                                                <span>2021</span>
-                                                <span>2022</span>
-                                                <span>2023</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="rescue-adoption-chart" style="width: 100%; height: 400px;"></div>
                             </div>
                         </div>
                     </div>
@@ -329,64 +360,12 @@
                         <h4 class="chart-title">动物种类分布</h4>
                         <div class="chart-row">
                             <div class="chart-wrapper">
-                                <div class="pie-chart">
-                                    <svg viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45" fill="#eee" />
-                                        <path d="M50,50 L50,5 A45,45 0 0,1 84.6,15.4 Z" fill="#118ab2" /> <!-- 猫: 40% -->
-                                        <path d="M50,50 L84.6,15.4 A45,45 0 0,1 84.6,84.6 Z" fill="#06d6a0" /> <!-- 狗: 35% -->
-                                        <path d="M50,50 L84.6,84.6 A45,45 0 0,1 15.4,84.6 Z" fill="#ff9e00" /> <!-- 兔子: 15% -->
-                                        <path d="M50,50 L15.4,84.6 A45,45 0 0,1 50,5 Z" fill="#ef476f" /> <!-- 其他: 10% -->
-                                    </svg>
-                                </div>
-                                <div class="legend">
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #118ab2;"></div>
-                                        <span>猫 (40%)</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #06d6a0;"></div>
-                                        <span>狗 (35%)</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #ff9e00;"></div>
-                                        <span>兔子 (15%)</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #ef476f;"></div>
-                                        <span>其他 (10%)</span>
-                                    </div>
-                                </div>
+                                <div id="animal-pie-chart" style="width: 100%; height: 300px;"></div>
                             </div>
                             
                             <div class="chart-wrapper">
                                 <h4 class="chart-title">志愿者服务领域分布</h4>
-                                <div class="pie-chart">
-                                    <svg viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45" fill="#eee" />
-                                        <path d="M50,50 L50,5 A45,45 0 0,1 84.6,15.4 Z" fill="#118ab2" /> <!-- 救助: 35% -->
-                                        <path d="M50,50 L84.6,15.4 A45,45 0 0,1 65,65 Z" fill="#06d6a0" /> <!-- 医疗: 25% -->
-                                        <path d="M50,50 L65,65 A45,45 0 0,1 15.4,84.6 Z" fill="#ff9e00" /> <!-- 护理: 30% -->
-                                        <path d="M50,50 L15.4,84.6 A45,45 0 0,1 50,5 Z" fill="#ef476f" /> <!-- 宣传: 10% -->
-                                    </svg>
-                                </div>
-                                <div class="legend">
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #118ab2;"></div>
-                                        <span>现场救助 (35%)</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #06d6a0;"></div>
-                                        <span>医疗协助 (25%)</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #ff9e00;"></div>
-                                        <span>日常护理 (30%)</span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <div class="legend-color" style="background-color: #ef476f;"></div>
-                                        <span>宣传推广 (10%)</span>
-                                    </div>
-                                </div>
+                                <div id="volunteer-pie-chart" style="width: 100%; height: 300px;"></div>
                             </div>
                         </div>
                     </div>
@@ -472,7 +451,7 @@
                     <ul>
                         <li><i class="fas fa-envelope"></i> contact@lovehome.org</li>
                         <li><i class="fas fa-phone"></i> 400-123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 北京市朝阳区爱心街123号</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 黑龙江科技大学14-625</li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -492,5 +471,155 @@
     </footer>
     
     <script src="js/script.js"></script>
+    <script>
+        // 初始化ECharts实例
+        var rescueAdoptionChart = echarts.init(document.getElementById('rescue-adoption-chart'));
+        var animalChart = echarts.init(document.getElementById('animal-pie-chart'));
+        var volunteerChart = echarts.init(document.getElementById('volunteer-pie-chart'));
+
+        // 历年救助与领养数据柱状图配置
+        var rescueAdoptionOption = {
+            title: {
+                text: '历年救助与领养数据对比',
+                left: 'center',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['救助数量', '领养数量'],
+                top: '10%'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '20%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['2021年', '2022年', '2023年']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '救助数量',
+                    type: 'bar',
+                    data: [320, 280, 350],
+                    itemStyle: {
+                        color: '#118ab2'
+                    }
+                },
+                {
+                    name: '领养数量',
+                    type: 'bar',
+                    data: [220, 280, 320],
+                    itemStyle: {
+                        color: '#06d6a0'
+                    }
+                }
+            ]
+        };
+
+        // 动物种类分布饼图配置
+        var animalOption = {
+            title: {
+                text: '动物种类分布',
+                left: 'center',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [{
+                name: '动物种类',
+                type: 'pie',
+                radius: '50%',
+                center: ['50%', '60%'],
+                data: [
+                    { value: 40, name: '猫 (40%)' },
+                    { value: 35, name: '狗 (35%)' },
+                    { value: 15, name: '兔子 (15%)' },
+                    { value: 10, name: '其他 (10%)' }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
+
+        // 志愿者服务领域分布饼图配置
+        var volunteerOption = {
+            title: {
+                text: '志愿者服务领域分布',
+                left: 'center',
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series: [{
+                name: '服务领域',
+                type: 'pie',
+                radius: '50%',
+                center: ['50%', '60%'],
+                data: [
+                    { value: 35, name: '现场救助 (35%)' },
+                    { value: 25, name: '医疗协助 (25%)' },
+                    { value: 30, name: '日常护理 (30%)' },
+                    { value: 10, name: '宣传推广 (10%)' }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
+
+        // 设置并渲染图表
+        rescueAdoptionChart.setOption(rescueAdoptionOption);
+        animalChart.setOption(animalOption);
+        volunteerChart.setOption(volunteerOption);
+
+        // 监听窗口大小变化，调整图表尺寸
+        window.addEventListener('resize', function () {
+            rescueAdoptionChart.resize();
+            animalChart.resize();
+            volunteerChart.resize();
+        });
+    </script>
 </body>
 </html>
